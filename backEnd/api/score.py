@@ -5,6 +5,10 @@ from datetime import datetime
 score = Blueprint("score", __name__)
 
 
+
+
+
+
 # 查询全部
 @score.route("/getALlScore", methods=["GET"])
 def get_all_score():

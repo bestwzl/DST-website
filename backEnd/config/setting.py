@@ -5,8 +5,8 @@ SERVER_PORT = 9999
 MYSQL_HOST = "localhost"
 MYSQL_PORT = 3306
 MYSQL_USER = "root"
-MYSQL_PASSWD = "bestwzl00"
-MYSQL_DB = "school"
+MYSQL_PASSWD = "Wang1101@"
+MYSQL_DB = "work-to-app"
 
 # Redis配置
 REDIS_HOST = "localhost"

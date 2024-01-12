@@ -20,7 +20,7 @@ def hello_world():
 @user.route("/users", methods=["GET"])
 def get_all_users():
     """获取所有用户信息"""
-    sql = "SELECT * FROM user"
+    sql = "SELECT * FROM users"
     data = db.select_db(sql)
     print("获取所有用户信息 == >> {}".format(data))
     return jsonify({"code": 0, "data": data, "msg": "查询成功"})

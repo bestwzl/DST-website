@@ -18,7 +18,6 @@ const GlobalConfig = {
     },
     PROD: {
         env: 'PROD',
-        // baseUrl: 'http://gcp-backend',
         baseUrl: `${window.location.origin}/backend`,
     },
 }

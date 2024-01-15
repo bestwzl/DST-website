@@ -1,19 +1,9 @@
 // 配置请求方法
 
-// import Vue from 'vue'
 import axios from "axios";
 import { urlUtils } from "./apiConfig";
 import { commonUtils } from "../util";
 import router from "../../router";
-
-/**
- * 拦截请求数据，在请求开始的时候展示loading
- **/
-// import { urlConfig } from './ipConfig';
-// const baseURL = `${urlConfig.baseUrl}`;
-// axios.defaults.baseURL = baseURL; // 会在传入的url前边拼接上这个baseURL
-
-// axios.defaults.baseURL = ''; // 会在传入的url前边拼接上这个baseURL
 
 /**
  * 拦截请求

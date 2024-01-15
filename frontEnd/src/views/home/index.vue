@@ -1,19 +1,15 @@
 <template>
     <div class="page404_wrapper">
-        <SKLogo />
         <div class="page404_content">
-            <p class="page404_title">GCP</p>
-            <p class="page404_desc">欢迎使用图计算平台</p>
+            <p class="page404_title">DST</p>
+            <p class="page404_desc">首页</p>
         </div>
     </div>
 </template>
 
 <script>
-import SKLogo from '../components/SKLogo_75.vue'
 export default {
-  components: {
-    SKLogo
-  },
+  components: {},
 
 };
 </script>

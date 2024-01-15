@@ -48,96 +48,6 @@ const routes = [
                 }
             },
             {
-                path: '/moreserver',
-                name: 'moreserver',
-                component: () => import('../views/overview/moreServerPage.vue'),
-                meta: {
-                    title: '更多服务',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/datamanage',
-                name: 'dataManage',
-                component: () => import('../views/dataset/dataManage/index.vue'),
-                meta: {
-                    title: '数据管理',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/graphconfig',
-                name: 'graphConfig',
-                component: () => import('../views/dataset/graphConfig/index.vue'),
-                meta: {
-                    title: '图管理',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/modalmanage',
-                name: 'modalManage',
-                component: () => import('../views/dataset/modelManage/index.vue'),
-                meta: {
-                    title: '模型管理',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/gruntime',
-                name: 'gRunTime',
-                component: () => import('../views/gRunTime/index.vue'),
-                meta: {
-                    title: 'G-runtime',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/explore',
-                name: 'graphExplore',
-                component: () => import('../views/graph/explore/index.vue'),
-                meta: {
-                    title: 'graphExplore',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/model',
-                name: 'graphModel',
-                component: () => import('../views/graph/model/index.vue'),
-                meta: {
-                    title: 'graphModel',
-                    keepAlive: true,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/session',
-                name: 'session',
-                component: () => import('../views/graph/session/index.vue'),
-                meta: {
-                    title: 'session管理',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
-                path: '/analyze',
-                name: 'analyze',
-                component: () => import('../views/graph/analyze/index.vue'),
-                meta: {
-                    title: 'analyze管理',
-                    keepAlive: false,
-                    keepLog: false,
-                }
-            },
-            {
                 path: '/user',
                 name: 'baseInfo',
                 component: () => import('../views/userManage/index.vue'),
@@ -145,16 +55,6 @@ const routes = [
                     title: '用户中心',
                     keepAlive: true,
                     keepLog: true,
-                }
-            },
-            {
-                path: '/exploreApi',
-                name: 'exploreApi',
-                component: () => import('../views/graph/explore/index_api.vue'),
-                meta: {
-                    title: 'exploreApi',
-                    keepAlive: false,
-                    keepLog: false,
                 }
             },
         ]

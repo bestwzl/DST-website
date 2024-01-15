@@ -5,13 +5,12 @@ module.exports = {
     devServer: {
         open: true, // 是否自动弹出浏览器
         host: '0.0.0.0',
-        port: 8088, // 端口
+        port: 8090, // 端口
         https: false,
         hotOnly: true, // 热更新
         proxy: {
             '/apis': {
-                // target: 'http://172.16.68.16:8001', // 目标地址 杨波本机-有线
-                // target: 'http://172.16.70.0:8001', // 目标地址 杨波本机-无线
+                // target: 'http://172.16.68.16:8001', // 目标地址 本机-有线
                 target: 'http://backend.gcp.unicom.cn:30884', // 目标地址
                 // ws: true, // 是否启用websockets
                 secure: false, // 使用的是http协议则设置为false，https协议则设置为true

@@ -19,6 +19,20 @@ router.beforeEach((to, from, next) => {
   next(); // 不校验登录
 })
 
+
+Vue.directive('scroll', {
+  bind(el, binding) {
+    window.addEventListener('scroll', () => {
+      // 获取当前页面滚动位置
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      // 调用传递进来的回调函数，并将滚动位置作为参数传递
+      if (typeof binding.value === 'function') {
+        binding.value(scrollTop);
+      }
+    });
+  },
+});
+
 new Vue({
   router,
   store,

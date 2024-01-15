@@ -2,7 +2,7 @@
 <template>
 <div class="main_tab_wrapper">
     <div class="tool_wrapper">
-      <!-- <div class="tool_input_wrapper">
+      <div class="tool_input_wrapper">
         <el-input
           v-model="userKeywords"
           placeholder="请输入账号"
@@ -10,11 +10,12 @@
           @keyup.enter.native="getUserList"
         ></el-input>
         <el-button type="primary" @click="getUserList" style="margin-left: 12px;">查询</el-button>
-      </div> -->
-      <div></div>
-      <div>
-        <el-button v-if="+userRole === 1" type="success" plain @click="handleClickAdd">新增用户</el-button>
       </div>
+      <div>
+        <el-button  type="success" plain @click="handleClickAdd">新增用户</el-button>
+      </div>
+
+      <h1>{{ loginUserInfo.account }}</h1>
     </div>
     <div class="table_wrapper">
       <el-table
@@ -27,20 +28,20 @@
 
         <el-table-column
           prop="name"
-          label="账号">
+          label="昵称">
         </el-table-column>
 
         <el-table-column
-          prop="id"
-          label="账号id">
+          prop="account"
+          label="登录账号">
         </el-table-column>
 
         <el-table-column
-          label="账户类型"
+          label="账户角色"
         >
           <template slot-scope="props">
-            <p v-if="+props.row.is_superuser" style="color:rgb(209, 74, 2)">管理员</p>
-            <p v-else style="color:rgb(3, 106, 210)">普通用户</p>
+            <p v-if="+props.row.role === 1" style="color:rgb(209, 74, 2)">超管</p>
+            <p v-else style="color:rgb(3, 106, 210)">管理员</p>
           </template>
         </el-table-column>
 
@@ -53,30 +54,29 @@
         </el-table-column>
 
         <el-table-column
-          v-if="+userRole === 1"
           fixed="right"
           label="操作"
           width="180"
         >
           <template slot-scope="scope">
-            <!-- <el-button
-              :disabled="targetUserId === scope.row.user_name"
+            <el-button
+              :disabled="loginUserInfo.userAccount === scope.row.account"
               @click="handleClickReset(scope.row)"
               type="text"
               size="small"
-              :class="targetUserId === scope.row.user_name ? 'target-disabled' : 'reset-btn'"
-            >重置密码</el-button> -->
+              :class="loginUserInfo.userAccount === scope.row.account ? 'target-disabled' : 'reset-btn'"
+            >重置密码</el-button>
             <el-button
               @click="handleClickEdit(scope.row)"
               type="text"
               size="small"
             >编辑</el-button>
-            <!-- <el-button
+            <el-button
               @click="handleClickDelete(scope.row)"
               type="text"
               size="small"
               style="color:red"
-            >删除</el-button> -->
+            >删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -118,21 +118,39 @@ export default {
       dialogVisible: false,
       targetUserInfo: {},
       userKeywords: '',
-      tableData: [],
+      tableData: [
+        {
+          id: 1001,
+          name: '星竹',
+          account: 'xingzhu',
+          role: 2
+        },
+        {
+          id: 1002,
+          name: '麒智',
+          account: 'qizhi',
+          role: 2
+        },
+        {
+          id: 1003,
+          name: '亮亮',
+          account: 'liangliang',
+          role: 1
+        }
+      ],
       currentPage: 1,
       pageSize: 10,
       listTotal: 0,
-      userRole: 2,
-      targetUserId: '',
+      loginUserInfo: {}
     };
   },
   created() {},
   mounted() {
-    this.getUserList();
-    const userInfoString = this.$commonUtils.getSessionItem("operatorInfo") || '{}';
-    const { userRole, userId } = JSON.parse(userInfoString);
-    this.targetUserId = userId;
-    this.userRole = userRole || 2;
+    // this.getUserList();
+    const operatorInfo = this.$commonUtils.getSessionItem("operatorInfo") || '{}';
+    this.loginUserInfo = JSON.parse(operatorInfo);
+
+    console.log("登录用户信息：：：", this.loginUserInfo)
   },
   methods: {
     // 获取用户列表
@@ -192,32 +210,32 @@ export default {
     },
 
     // 删除
-    // doDeleteUser(id) {
-    //   const params = {
-    //     delete_account: id
-    //   }
-    //   this.$httpPost("deleteUser", params)
-    //     .then((res) => {
-    //       if (res.code == 200) {
-    //         this.currentPage = 1;
-    //         this.getUserList();
-    //       } else {
-    //         this.$message({
-    //           message: res.msg,
-    //           type: "error",
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       this.$message({
-    //         message: err.message || "请求异常",
-    //         type: "error",
-    //       });
-    //     })
-    //     .finally(() => {
-    //       this.btnLoading = false;
-    //     });
-    // },
+    doDeleteUser(id) {
+      const params = {
+        delete_account: id
+      }
+      this.$httpPost("deleteUser", params)
+        .then((res) => {
+          if (res.code == 200) {
+            this.currentPage = 1;
+            this.getUserList();
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((err) => {
+          this.$message({
+            message: err.message || "请求异常",
+            type: "error",
+          });
+        })
+        .finally(() => {
+          this.btnLoading = false;
+        });
+    },
 
     // 重置密码
     handleClickReset(row) {

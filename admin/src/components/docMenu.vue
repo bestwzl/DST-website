@@ -16,34 +16,52 @@
         </el-menu-item-group>
 
         <el-menu-item-group>
-          <span slot="title" v-if="!isCollapse">数据应用</span>
-          <el-menu-item index="/gruntime">
+          <span slot="title" v-if="!isCollapse">页面配置</span>
+          <el-menu-item index="/home">
             <i class="el-icon-odometer"></i>
-            <span slot="title">G-runtime</span>
+            <span slot="title">首页</span>
+          </el-menu-item>
+
+          <el-menu-item index="/shehuizeren">
+            <i class="el-icon-odometer"></i>
+            <span slot="title">社会责任</span>
+          </el-menu-item>
+
+          <el-menu-item index="/aboutUs">
+            <i class="el-icon-odometer"></i>
+            <span slot="title">关于我们</span>
+          </el-menu-item>
+
+          <el-menu-item index="/zhaoxiannashi">
+            <i class="el-icon-odometer"></i>
+            <span slot="title">招贤纳士</span>
           </el-menu-item>
         </el-menu-item-group>
 
         <el-submenu index="parent_menu_1">
           <template slot="title">
             <i class="el-icon-s-management"></i>
-            <span slot="title">DataSet</span>
+            <span slot="title">研究布局</span>
           </template>
-          <el-menu-item index="/datamanage">数据管理</el-menu-item>
-          <el-menu-item index="/graphconfig">图管理</el-menu-item>
-          <el-menu-item index="/modalmanage">模型管理</el-menu-item>
+          <el-menu-item index="/datamanage">智能</el-menu-item>
+          <el-menu-item index="/graphconfig">计算</el-menu-item>
+          <el-menu-item index="/modalmanage">大模型</el-menu-item>
         </el-submenu>
 
         <el-submenu index="parent_menu_2">
           <template slot="title">
             <i class="el-icon-share"></i>
-            <span slot="title">GRAPH</span>
+            <span slot="title">合作生态</span>
           </template>
-          <el-menu-item index="/session">session</el-menu-item>
-          <el-menu-item index="/analyze">analyze</el-menu-item>
+          <el-menu-item index="/session">文旅</el-menu-item>
+          <el-menu-item index="/zhengwu">政务</el-menu-item>
+          <el-menu-item index="/tongxin">通信</el-menu-item>
+          <el-menu-item index="/jiaoyu">教育</el-menu-item>
+          <el-menu-item index="/jinrong">金融</el-menu-item>
+          <el-menu-item index="/zhihuichengshi">智慧城市</el-menu-item>
           <!-- <el-menu-item index="/explore">explore</el-menu-item> -->
           <!-- 自研 -->
-          <el-menu-item index="/exploreApi">explore</el-menu-item>
-          <el-menu-item index="/model">model</el-menu-item>
+          
         </el-submenu>
 
         <el-menu-item-group>

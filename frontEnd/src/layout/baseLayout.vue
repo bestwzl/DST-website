@@ -1,9 +1,9 @@
 // 基础布局
 <template>
-  <div class="base-layout_wrapper">
+  <div class="base-layout_wrapper" >
     <Header />
 
-    <div>
+    <div class="layout_body_wrapper">
       <keep-alive>
           <router-view :key="$route.fullPath" v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
@@ -15,8 +15,8 @@
   </div>
 </template>
 <script>
-import Header from './header.vue'
-import Footer from './footer.vue'
+import Header from './header/index.vue'
+import Footer from './footer/index.vue'
 export default {
   components: {
     Header,
@@ -35,6 +35,8 @@ export default {
   },
 
   methods: {
+
+
     changeSysTheme() {
       const skTheme = this.$commonUtils.getSessionItem('SK_theme');
       let targetTheme = 'light';
@@ -58,6 +60,11 @@ export default {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
+  .layout_body_wrapper {
+    width: 1400px;
+    margin: 0 auto;
+    background-color: antiquewhite;
+  }
 }
 </style>
 

@@ -1,4 +1,4 @@
-// 基础布局
+n// 基础布局
 <template>
   <div class="baseLayoutWrapper">
     <el-container style="height: 100%;">
@@ -9,13 +9,13 @@
               <img src="@/assets/img/gcp_logo.png" alt="">
               <!-- <SKLogo /> -->
             </div>
-            <p>图计算平台</p>
+            <p>UST-配置中心</p>
           </div>
 
           <div class="baseLayoutHeaderInfo">
             <div class="baseLayoutHeaderInfoItem">
               <p class="adminPeople">
-                登录人: {{ this.$commonUtils.getSessionItem("operatorName") }}
+                登录人: {{ loginUserInfo.userName }}
               </p>
             </div>
 
@@ -72,11 +72,13 @@ export default {
     return {
       isCollapse: false,
       dialogFormVisible: false, // 修改密码弹窗
+      loginUserInfo: {},
     };
   },
 
   mounted() {
-
+    const operatorInfo = this.$commonUtils.getSessionItem("operatorInfo") || '{}';
+    this.loginUserInfo = JSON.parse(operatorInfo);
   },
 
   methods: {

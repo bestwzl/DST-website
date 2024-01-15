@@ -1,9 +1,9 @@
 // 基础布局-头部
 <template>
-  <div class="layout-header_wrapper">
+  <div class="layout_header_wrapper">
     <div class="header_center">
       <div class="header_logo">
-        <img src="../assets//img/gcp_logo.png" alt="">
+        <img src="@/assets/img/gcp_logo.png" alt="">
         <p>数据科学团队</p>
       </div>
       <div class="header_tab_list">
@@ -35,8 +35,11 @@
   </div>
 </template>
 <script>
+import BannerModule from './bannerModule.vue';
 export default {
-  components: {},
+  components: {
+    BannerModule
+  },
 
   data() {
     return {
@@ -57,13 +60,18 @@ export default {
 </script>
 
 <style scoped lang="less">
-.layout-header_wrapper {
+.layout_header_wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
   margin: 0;
   padding: 0;
   width: 100%;
   height: 80px;
+  background-color: #fff;
   .header_center {
-    height: 100%;
+    height: 80px;
     width: 1400px;
     margin: 0 auto;
     display: flex;

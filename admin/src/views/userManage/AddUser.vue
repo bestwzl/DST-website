@@ -9,6 +9,14 @@
         label-width="110px"
         class="formBox"
       >
+        <el-form-item label="昵称：" prop="name" >
+          <el-input
+            placeholder="请输入昵称"
+            v-model="ruleForm.name"
+            autocomplete="on"
+            :disabled="handleType === 'edit'"
+          ></el-input>
+        </el-form-item>
         <el-form-item label="登录账号：" prop="account" >
           <el-input
             placeholder="请输入登录账号"
@@ -25,24 +33,12 @@
           ></el-input>
         </el-form-item>
 
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="账户角色：" prop="role">
-              <el-radio-group v-model="ruleForm.role">
-                <el-radio :label="1">超管</el-radio>
-                <el-radio :label="2">用户</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="账户状态：" prop="status">
-              <el-radio-group v-model="ruleForm.status">
-                <el-radio :label="1">启用</el-radio>
-                <el-radio :label="2">停用</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-        </el-row>
+        <el-form-item label="账户角色：" prop="role">
+          <el-radio-group v-model="ruleForm.role">
+            <el-radio :label="1">超管</el-radio>
+            <el-radio :label="2">用户</el-radio>
+          </el-radio-group>
+        </el-form-item>
       </el-form>
 
       <div class="footer_btn_wrapper">
@@ -77,16 +73,16 @@ export default {
       btnLoading: false,
       handleType: 'add',
       ruleForm: {
+        name: '', // 昵称
         account: '', // 登录账户
         password: '', // 角色
-        role: '', // 所属分组
-        status: '' // 用户状态
+        role: '', // 角色
       },
       rules: {
+        name: [{ required: true, message: '昵称不能为空', trigger: 'blur' }],
         account: [{ required: true, message: '登录账号不能为空', trigger: 'blur' }],
         password: [{ required: true, message: '用户密码不能为空', trigger: 'blur' }],
         role: [{ required: true, message: '请选择账户角色', trigger: 'blur' }],
-        status: [{ required: true, message: '请选择账户状态', trigger: 'blur' }],
       },
     };
   },
@@ -95,12 +91,12 @@ export default {
     // console.log("当前用户信息：：：", this.defaultInfo)
     if (this.defaultInfo && this.defaultInfo.id) {
       this.handleType = 'edit';
-      const { is_active, is_superuser  } = this.defaultInfo;
+      const { name, account, role } = this.defaultInfo;
       this.ruleForm = {
-        account: this.defaultInfo.name,
+        name,
+        account,
         password: '',
-        role: is_superuser ? 1 : 2,
-        status: is_active ? 1 : 2,
+        role,
       }
     } else {
       this.handleType = 'add';
@@ -112,14 +108,14 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          const { account, password, role, status } = this.ruleForm;
+          const { name, account, password, role } = this.ruleForm;
           const formParams = {
-            password: password,
-            is_superuser: +role === 1 ? true : false,
-            is_active: +status === 1 ? true : false,
+            name,
+            account,
+            password: password ? this.$encryptionByMD5(password) : '',
+            role,
           };
           if (this.handleType === 'add') {
-            formParams.name = account;
             this.addUser(formParams);
           } else {
             const targetID = this.defaultInfo.id;

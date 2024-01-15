@@ -8,6 +8,9 @@ const dark = {
   '--border-color': '#666',
   '--font-color-1': '#fff',
   '--font-color-active': 'rgb(36, 104, 242)',
+  '--el-bg-color': '#000',
+  '--el-bg-hover-color': '#333',
+  '--el-bg-active-color': '#222',
 }
 
 // 明亮主题
@@ -16,6 +19,9 @@ const light = {
   '--border-color': '#eee',
   '--font-color-1': '#000',
   '--font-color-active': 'rgb(36, 104, 242)',
+  '--el-bg-color': '#fff',
+  '--el-bg-hover-color': '#ccc',
+  '--el-bg-active-color': '#ddd',
 }
 
 // 将颜色添加到 :root 中

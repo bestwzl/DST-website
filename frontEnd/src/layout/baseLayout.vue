@@ -60,10 +60,10 @@ export default {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
+  background-color: var(--background-color);
   .layout_body_wrapper {
-    width: 1400px;
-    margin: 0 auto;
-    background-color: antiquewhite;
+    width: 100%;
+    background-color: var(--background-color);
   }
 }
 </style>

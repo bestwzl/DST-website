@@ -32,7 +32,7 @@ export default {
         }
         this.doSetTheme(targetTheme)
       } else {
-        this.doSetTheme('light')
+        this.doSetTheme('dark')
       }
     },
     doSetTheme(theme){

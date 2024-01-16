@@ -1,47 +1,22 @@
+<!-- 关于我们 -->
 <template>
-    <div class="module_wrapper">
-        <el-carousel trigger="click" :autoplay="false" height="300px" class="banner_wrapper">
-            <el-carousel-item
-                v-for="(item, index) in bannerList"
-                :key="`${index}_${item.backGroundUrl}`"
-                class="banner_item"
-            >
-                <div class="banner_box">
-                    <div class="banner_bg_box">
-                        <img :src="item.backGroundUrl" alt="">
-                    </div>
-                    <div class="banner_content_box">
-                        <p class="banner_title">{{ item.title }}</p>
-                        <p class="banner_subtitle">{{ item.subTitle }}</p>
-                        <p class="banner_desc">{{ item.desc }}</p>
-                    </div>
-                </div>
-
-            </el-carousel-item>
-        </el-carousel>
+    <div class="home_page_wrapper">
+        这里是主体
     </div>
 </template>
 
 <script>
 export default {
-  components: {},
-  props: {
-
-  },
-
-  props: {
-    visible: {
-      type: Boolean,
-      required: false
-    },
-    bannerList: {
-      type: Array,
-      required: false,
-    }
+  components: {
   },
 
   data() {
     return {
+      aboutList: [
+        {title: '团队介绍'}, // 团队工作，团队成员介绍
+        {title: '知识产权'}, // 专利，软著，论文 等
+        {title: '荣誉墙'}, // 获得的奖励
+      ],
     };
   },
 
@@ -49,11 +24,13 @@ export default {
 </script>
 
 <style lang="less" scoped>
-    .module_wrapper {
-        width: 100%;
+    .home_page_wrapper {
+        width: 1400px;
+        min-height: 1500px;
         height: 100%;
-        margin: 0;
+        margin: 0 auto;
         padding: 0;
+        background-color: antiquewhite;
 
         .banner_wrapper {
             width: 100%;

@@ -7,13 +7,13 @@
     </div>
 
     <div
-      v-if="headerToolShow"
       class="header_tool_wrapper"
+      :class="headerToolShow ? 'header_show' : 'header_hide'"
       :style="`opacity: ${opcityNum}`"
     >
       <div class="header_center">
         <div class="header_logo">
-          <img src="@/assets/img/gcp_logo.png" alt="">
+          <img src="@/assets/img/gcp_logo.png" alt="" @click="changeSysTheme">
           <p>数据科学团队</p>
         </div>
         <div class="header_tab_list">
@@ -21,7 +21,7 @@
             :default-active="activeIndex"
             class="el-menu-demo"
             mode="horizontal"
-            menu-trigger="click"
+            menu-trigger="hover"
             @select="handleSelect"
           >
             <el-menu-item index="1">首页</el-menu-item>
@@ -67,7 +67,7 @@ export default {
       bannerList: [
         {
             backGroundType: 'img', // img, color, video
-            backGroundUrl: 'https://img0.baidu.com/it/u=3995006546,2760268670&fm=253&fmt=auto&app=138&f=JPEG?w=1563&h=500', // 背景图片/视屏地址 ｜ 纯色的颜色
+            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053xr0fs0rlo1.jpg', // 背景图片/视屏地址 ｜ 纯色的颜色
             title: '这是一级标题', // 标题
             subTitle: '这里是二级标题，文字多一些', // 二级标题
             desc: '这里是简单的描述文案，文字会更多一些，更多一些，更多一些', // 描述文案
@@ -75,7 +75,7 @@ export default {
         },
         {
             backGroundType: 'img',
-            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053xr0fs0rlo1.jpg',
+            backGroundUrl: 'https://www.sketchupbar.com/data/attachment/forum/201104/05/214753o73biezon08fj3bu.jpg',
             title: '',
             subTitle: '',
             desc: '',
@@ -83,7 +83,7 @@ export default {
         },
         {
             backGroundType: 'img',
-            backGroundUrl: 'https://img0.baidu.com/it/u=3018234987,951664061&fm=253&fmt=auto&app=138&f=JPEG?w=1563&h=500',
+            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053zrfuw2fqnd.jpg',
             title: '',
             subTitle: '',
             desc: '',
@@ -99,7 +99,7 @@ export default {
         },
         {
             backGroundType: 'img',
-            backGroundUrl: 'https://www.sketchupbar.com/data/attachment/forum/201104/05/214753o73biezon08fj3bu.jpg',
+            backGroundUrl: 'https://img0.baidu.com/it/u=3995006546,2760268670&fm=253&fmt=auto&app=138&f=JPEG?w=1563&h=500',
             title: '',
             subTitle: '',
             desc: '',
@@ -115,7 +115,7 @@ export default {
         },
         {
             backGroundType: 'img',
-            backGroundUrl: 'https://img1.baidu.com/it/u=1025798450,2201938949&fm=253&fmt=auto&app=138&f=JPEG?w=499&h=209',
+            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053bnorgfxvrk.jpg',
             title: '',
             subTitle: '',
             desc: '',
@@ -139,12 +139,12 @@ export default {
 
   methods: {
     handleScroll(scrollTop) {
-      if (scrollTop <= 160) {
+      if (scrollTop <= 240) {
         if (!this.headerToolShow) {
           this.headerToolShow = true;
         }
-        this.opcityNum = 1 - (scrollTop / 160).toFixed(2);
-        console.log('scrollTop:',scrollTop, '比例：', this.opcityNum);
+        this.opcityNum = 1 - (scrollTop / 240).toFixed(2);
+        // console.log('scrollTop:',scrollTop, '比例：', this.opcityNum);
         return;
       } else {
         this.headerToolShow = false;
@@ -153,7 +153,15 @@ export default {
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
-    }
+    },
+
+    changeSysTheme() {
+      const skTheme = this.$commonUtils.getSessionItem('SK_theme');
+      const targetTheme = skTheme === 'dark' ? 'light' : 'dark';
+
+      this.$commonUtils.setSessionItem('SK_theme', targetTheme);
+      this.$setSysTheme(targetTheme);
+    },
   },
 };
 </script>
@@ -163,7 +171,7 @@ export default {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 450px;
+  height: 500px;
   position: relative;
   .header_banner_wrapper {
     width: 100%;
@@ -177,9 +185,16 @@ export default {
     height: 80px;
     width: 100%;
     background-color: var(--background-color);
+    transition: 0.6s;
     .el-menu--horizontal {
       border-bottom: none!important;
     }
+  }
+  .header_hide {
+    top: -100px;
+  }
+  .header_show {
+    top: 0px;
   }
   .header_center {
     height: 80px;
@@ -203,53 +218,69 @@ export default {
         font-family: "楷体", KaiTi, "Microsoft YaHei", sans-serif;
       }
     }
+    .header_tab_list {
+      display: flex;
+      align-items: center;
+    }
   }
 }
 </style>
 
 <style lang="less">
 
-// .el-menu--horizontal {
-//   border-bottom: none!important;
-//   .el-menu {
-//     background-color: var(--el-bg-color);
-//     .el-menu-item,
-//     .el-submenu__title {
-//       background-color: var(--el-bg-color);
-//       float: none;
-//       height: 36px;
-//       line-height: 36px;
-//       padding: 0 10px;
-//       color: #909399;
-//     }
-//   }
-// }
-// .header_tool_wrapper{
-//   .el-menu--horizontal {
-//       background-color: var(--el-bg-color);
-//       .el-menu-item {
-//         &:hover{
-//           // background-color: var(--el-bg-hover-color);
-//           background-color: var(--el-bg-color)!important;
-//         }
-//       }
-//       .el-submenu {
-//         .el-submenu__title {
-//           &:hover{
-//             // background-color: var(--el-bg-hover-color)!important;
-//             background-color: var(--el-bg-color);
-//           }
-//         }
-//       }
-//       .is-active {
-//         // background-color: var(--el-bg-hover-color);
-//         background-color: var(--el-bg-color);
-//       }
-//       .is-opened {
-//         background-color: var(--el-bg-active-color)!important;
-//       }
-//   }
-// }
+.el-menu--horizontal {
+  border-bottom: none!important;
+  .el-menu {
+    background-color: var(--el-bg-color);
+    .el-menu-item,
+    .el-submenu__title {
+      background-color: var(--el-bg-color);
+      float: none;
+      height: 36px;
+      line-height: 36px;
+      padding: 0 10px;
+    }
+  }
+  .el-menu--popup {
+    .el-menu-item {
+      &:hover{
+        background-color: var(--el-bg-hover-color);
+        color: var(--font-color-1);
+      }
+    }
+  }
+}
+.header_tool_wrapper{
+  .el-menu--horizontal {
+      background-color: var(--el-bg-color);
+      .el-menu-item {
+        background-color: var(--el-bg-color)!important;
+        color: var(--font-color-2);
+        &:hover{
+          color: var(--font-color-1);
+        }
+      }
+      .el-submenu {
+        .el-submenu__title {
+          color: var(--font-color-2);
+          &:hover{
+            background-color: var(--el-bg-color);
+            color: var(--font-color-1);
+          }
+        }
+      }
+      .is-active {
+        background-color: var(--el-bg-color);
+        color: var(--font-color-1);
+      }
+      .is-opened {
+        color: var(--font-color-1);
+        .el-submenu__title {
+          color: var(--font-color-1);
+        }
+      }
+  }
+}
 
 
 </style>

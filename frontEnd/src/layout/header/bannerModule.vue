@@ -1,6 +1,6 @@
 <template>
     <div class="module_wrapper">
-        <el-carousel trigger="click" :autoplay="false" height="450px" class="banner_wrapper">
+        <el-carousel trigger="click" :autoplay="false" height="500px" class="banner_wrapper">
             <el-carousel-item
                 v-for="(item, index) in bannerList"
                 :key="`${index}_${item.backGroundUrl}`"
@@ -16,7 +16,6 @@
                         <p class="banner_desc">{{ item.desc }}</p>
                     </div>
                 </div>
-
             </el-carousel-item>
         </el-carousel>
     </div>

@@ -6,7 +6,7 @@
         <div class="logoImg"><img src="@/assets/img/gcp_logo.png" alt=""></div>
         <!-- <i class="el-icon-menu" style="font-size: 180px; transform: rotate(45deg);"></i> -->
         <div class="logoText">
-          <span>UST配置平台</span>
+          <span>DST配置平台</span>
         </div>
       </div>
       <div class="formContainer">

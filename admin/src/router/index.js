@@ -43,8 +43,7 @@ const routes = [
                 component: () => import('../views/overview/index.vue'),
                 meta: {
                     title: '概览',
-                    keepAlive: true,
-                    keepLog: true, // 是否被记录在面包屑中
+                    keepAlive: false,
                 }
             },
             {
@@ -53,8 +52,59 @@ const routes = [
                 component: () => import('../views/userManage/index.vue'),
                 meta: {
                     title: '用户中心',
+                    keepAlive: false,
+                }
+            },
+        ]
+    },
+    {
+        path: '/website',
+        name: 'website',
+        component: () => import('../layout/baseLayout.vue'),
+        children: [
+            {
+                path: 'globle',
+                name: 'globle',
+                component: () => import('../views/website/globle/index.vue'),
+                meta: {
+                    title: '全局配置',
+                    keepAlive: false,
+                }
+            },
+            {
+                path: 'home',
+                name: 'home',
+                component: () => import('../views/website/home/index.vue'),
+                meta: {
+                    title: '首页配置',
                     keepAlive: true,
-                    keepLog: true,
+                }
+            },
+            {
+                path: 'obligation',
+                name: 'obligation',
+                component: () => import('../views/website/obligation/index.vue'),
+                meta: {
+                    title: '社会责任',
+                    keepAlive: true,
+                }
+            },
+            {
+                path: 'aboutUs',
+                name: 'aboutUs',
+                component: () => import('../views/website/aboutUs/index.vue'),
+                meta: {
+                    title: '关于我们',
+                    keepAlive: true,
+                }
+            },
+            {
+                path: 'recruit',
+                name: 'recruit',
+                component: () => import('../views/website/recruit/index.vue'),
+                meta: {
+                    title: '招贤纳士',
+                    keepAlive: true,
                 }
             },
         ]

@@ -9,7 +9,7 @@ n// 基础布局
               <img src="@/assets/img/gcp_logo.png" alt="">
               <!-- <SKLogo /> -->
             </div>
-            <p>UST-配置中心</p>
+            <p>DST-配置中心</p>
           </div>
 
           <div class="baseLayoutHeaderInfo">

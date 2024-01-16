@@ -8,7 +8,7 @@
         :collapse="isCollapse"
       >
         <el-menu-item-group>
-          <span slot="title" v-if="!isCollapse">全局</span>
+          <span slot="title" v-if="!isCollapse">统计</span>
           <el-menu-item index="/overview">
             <i class="el-icon-menu"></i>
             <span slot="title">概览</span>
@@ -17,22 +17,27 @@
 
         <el-menu-item-group>
           <span slot="title" v-if="!isCollapse">页面配置</span>
-          <el-menu-item index="/home">
+          <el-menu-item index="/website/globle">
+            <i class="el-icon-odometer"></i>
+            <span slot="title">全局配置</span>
+          </el-menu-item>
+
+          <el-menu-item index="/website/home">
             <i class="el-icon-odometer"></i>
             <span slot="title">首页</span>
           </el-menu-item>
 
-          <el-menu-item index="/shehuizeren">
+          <el-menu-item index="/website/obligation">
             <i class="el-icon-odometer"></i>
             <span slot="title">社会责任</span>
           </el-menu-item>
 
-          <el-menu-item index="/aboutUs">
+          <el-menu-item index="/website/aboutUs">
             <i class="el-icon-odometer"></i>
             <span slot="title">关于我们</span>
           </el-menu-item>
 
-          <el-menu-item index="/zhaoxiannashi">
+          <el-menu-item index="/website/recruit">
             <i class="el-icon-odometer"></i>
             <span slot="title">招贤纳士</span>
           </el-menu-item>
@@ -59,9 +64,6 @@
           <el-menu-item index="/jiaoyu">教育</el-menu-item>
           <el-menu-item index="/jinrong">金融</el-menu-item>
           <el-menu-item index="/zhihuichengshi">智慧城市</el-menu-item>
-          <!-- <el-menu-item index="/explore">explore</el-menu-item> -->
-          <!-- 自研 -->
-          
         </el-submenu>
 
         <el-menu-item-group>
@@ -129,6 +131,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+    padding-top: 10px;
   }
 
   .doc_menu_wrapper_withWidth {

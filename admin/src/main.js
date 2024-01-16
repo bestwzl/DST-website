@@ -9,12 +9,9 @@ import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import md5 from "js-md5";
 import constants from "./common/constants"; // 常量枚举
-import "../mock";
-import VueBus from 'vue-bus';
 
 Vue.use(ElementUI);
 Vue.use(HttpUtils); // 服务请求
-Vue.use(VueBus); // 全局事件总线
 Vue.prototype.$constants = constants; // 常量
 Vue.prototype.$commonUtils = commonUtils; // 将公用方法放进原型
 Vue.prototype.$setSysTheme = setSysTheme; // 修改主题

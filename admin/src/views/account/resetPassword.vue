@@ -101,8 +101,7 @@ export default {
   },
   created() {
     const operatorInfo = this.$commonUtils.getSessionItem("operatorInfo");
-    const operatorUser = this.$commonUtils.getSessionItem("operatorName");
-    if(!operatorInfo || !operatorUser){
+    if(!operatorInfo){
       this.$router.push("/login");
     }
   },

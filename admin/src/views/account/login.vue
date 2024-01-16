@@ -6,7 +6,7 @@
         <div class="logoImg"><img src="@/assets/img/gcp_logo.png" alt=""></div>
         <!-- <i class="el-icon-menu" style="font-size: 180px; transform: rotate(45deg);"></i> -->
         <div class="logoText">
-          <span>图计算平台</span>
+          <span>UST配置平台</span>
         </div>
       </div>
       <div class="formContainer">
@@ -50,7 +50,7 @@
           <el-form-item>
             <div class="other_btns">
               <el-button type="text" @click="resetForm('ruleForm')">重置信息</el-button>
-              <el-button type="text" @click="open">没有账号？</el-button>
+              <el-button type="text" @click="haveNoAccount">没有账号？</el-button>
             </div>
           </el-form-item>
         </el-form>
@@ -61,7 +61,6 @@
   </div>
 </template>
 <script>
-import { commonUtils } from "../../common/util";
 export default {
   name: "login",
   data() {
@@ -83,7 +82,6 @@ export default {
     };
     return {
       defaultPassword: this.$constants.DEFAULTPASSWORD,
-      isDevMenu: true, // 是否使用本地菜单
       loginLoading: false,
       ruleForm: {
         account: "",
@@ -110,25 +108,38 @@ export default {
           const { account, password } = this.ruleForm;
           const loginParams = {
             username: account, //用户名
-            // password: this.$encryptionByMD5(password),
-            password: password,
+            password: this.$encryptionByMD5(password),
           };
 
+          console.log("登录参数：：", loginParams)
+
           this.loginLoading = true;
-          this.$httpPost("userLogin", loginParams, {'Content-Type': 'application/x-www-form-urlencoded'})
-            .then((res) => {
+          // this.$httpPost("userLogin", loginParams, {'Content-Type': 'application/x-www-form-urlencoded'})
+          //   .then((res) => {
+          //     this.setUserInfo(res);
+          //     this.getUserMe({account, ...res});
+          //   })
+          //   .catch((err) => {
+          //     this.$message({
+          //       message: err.message || "请求异常",
+          //       type: "error",
+          //     });
+          //   })
+          //   .finally(() => {
+          //     this.loginLoading = false;
+          //   });
+
+          setTimeout(()=>{
+              const res = {
+                id: 1001,
+                token: this.$commonUtils.getRandomKey(),
+                name: '星竹',
+                account,
+                rule: 1
+              };
               this.setUserInfo(res);
-              this.getUserMe({account, ...res});
-            })
-            .catch((err) => {
-              this.$message({
-                message: err.message || "请求异常",
-                type: "error",
-              });
-            })
-            .finally(() => {
               this.loginLoading = false;
-            });
+          }, 1500)
         } else {
           console.log("校验错误!!");
           return false;
@@ -136,48 +147,23 @@ export default {
       });
     },
 
-    // getUserMe
-
-    //点击登录之后校验
-    getUserMe(tokenInfo) {
-      this.$httpGet("getUserMe")
-        .then((res) => {
-          const {id, is_active, is_superuser} = res;
-          this.setUserInfo({
-            ...tokenInfo,
-            userId: id,
-            userRole: is_superuser ? 1 : 2,
-            is_active
-          });
-        })
-        .catch((err) => {
-          this.$message({
-            message: err.message || "请求异常",
-            type: "error",
-          });
-        });
-
-    },
-
     // 缓存用户信息以及做对应跳转
     setUserInfo(res) {
-      const { account, access_token, token_type, userId, userRole, is_active } = res;
+      const { id, account, token, name, rule} = res;
       const userInfo = {
-        userName: account,
-        token: access_token,
-        token_type,
-        userId,
-        userRole,
-        is_active
+        userId: id,
+        userName: name,
+        userAccount: account,
+        userRole: rule,
+        token: token,
       };
       this.cacheUserInfo(userInfo);
-      this.$router.push("/overview");
+      this.$router.push("/user");
     },
 
     //缓存用户的基本信息
     cacheUserInfo(userInfo) {
-      commonUtils.setSessionItem("operatorName", userInfo.userName);
-      commonUtils.setSessionItem("operatorInfo", JSON.stringify(userInfo));
+      this.$commonUtils.setSessionItem("operatorInfo", JSON.stringify(userInfo));
     },
 
     // 表单重置
@@ -185,17 +171,16 @@ export default {
       this.$refs[formName].resetFields();
     },
 
-    open() {
-      this.$alert('哈哈，我也没有。(^_^)a', '没有账号怎么办？', {
-        confirmButtonText: '确定',
-      });
-    },
-
     // 清除缓存数据
     removeSessionInfo() {
       this.$commonUtils.removeSessionItem("operatorTime"); // 清除时间
-      this.$commonUtils.removeSessionItem("operatorName"); // 清除用户code
       this.$commonUtils.removeSessionItem("operatorInfo"); // 清除用户信息
+    },
+
+    haveNoAccount() {
+      this.$alert('哈哈，我也没有。(^_^)a', '没有账号怎么办？', {
+        confirmButtonText: '确定',
+      });
     },
   },
 };

@@ -11,6 +11,7 @@
         ></el-input>
         <el-button type="primary" @click="getUserList" style="margin-left: 12px;">查询</el-button>
       </div>
+
       <div>
         <el-button  type="success" plain @click="handleClickAdd">新增用户</el-button>
       </div>

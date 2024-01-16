@@ -10,7 +10,7 @@
         <el-menu-item-group>
           <span slot="title" v-if="!isCollapse">统计</span>
           <el-menu-item index="/overview">
-            <i class="el-icon-menu"></i>
+            <i class="el-icon-data-line"></i>
             <span slot="title">概览</span>
           </el-menu-item>
         </el-menu-item-group>
@@ -18,22 +18,22 @@
         <el-menu-item-group>
           <span slot="title" v-if="!isCollapse">页面配置</span>
           <el-menu-item index="/website/globle">
-            <i class="el-icon-odometer"></i>
+            <i class="el-icon-menu"></i>
             <span slot="title">全局配置</span>
           </el-menu-item>
 
           <el-menu-item index="/website/home">
-            <i class="el-icon-odometer"></i>
+            <i class="el-icon-house"></i>
             <span slot="title">首页</span>
           </el-menu-item>
 
           <el-menu-item index="/website/obligation">
-            <i class="el-icon-odometer"></i>
+            <i class="el-icon-coin"></i>
             <span slot="title">社会责任</span>
           </el-menu-item>
 
           <el-menu-item index="/website/aboutUs">
-            <i class="el-icon-odometer"></i>
+            <i class="el-icon-trophy"></i>
             <span slot="title">关于我们</span>
           </el-menu-item>
 

@@ -4,7 +4,7 @@
 import { urlConfig } from './ipConfig';
 
 const {baseUrl} = urlConfig;
-const baseURL = `${baseUrl}/api/v1`
+const baseURL = `${baseUrl}/admin`
 const mockURL = `/mock`;
 
 
@@ -33,7 +33,7 @@ const urlUtils = {
     getBannerList: `${baseURL}/getBannerList`, // 获取轮播图列表 get
     addBanner: `${baseURL}/addBanner`, // 新建轮播图 post
     updateBanner: `${baseURL}/updateBanner`, // 修改轮播图 post
-    deleteBanner: `${baseURL}/deleteBanner`, // 删除轮播图 get
+    deleteBanner: `${baseURL}/deleteBanner/`, // 删除轮播图 delete
 
 }
 

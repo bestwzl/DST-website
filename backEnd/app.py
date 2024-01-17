@@ -4,6 +4,7 @@ from flask import Flask
 from api.user import user
 from api.students import student
 from api.score import score
+from api.webBanner import banner
 
 app = Flask(__name__)
 app.config["JSON_AS_ASCII"] = False  # jsonify返回的中文正常显示
@@ -11,6 +12,7 @@ app.config["JSON_AS_ASCII"] = False  # jsonify返回的中文正常显示
 app.register_blueprint(user, url_prefix="/account")
 app.register_blueprint(student, url_prefix="/school")
 app.register_blueprint(score, url_prefix="/school")
+app.register_blueprint(banner, url_prefix="/website")
 
 # 项目根路径
 BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

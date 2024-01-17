@@ -88,7 +88,16 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          const params = {
+            ...this.ruleForm
+          }
+          if (this.handleType === 'add') {
+            this.createBanner('addBanner', params)
+          } else if(this.handleType === 'edit') {
+            const { id } = this.targetBanner;
+            params.id = id;
+            this.createBanner('updateBanner', params)
+          }
         } else {
           console.log('error submit!!');
           return false;
@@ -96,11 +105,22 @@ export default {
       });
     },
 
-    createBanner(params) {
+    createBanner(apiUrl, params) {
       this.btnLoading = true;
-      this.$httpPost("addBanner", params)
+      this.$httpPost(apiUrl, params)
         .then((res) => {
-          this.$emit("closeAndRefreshList");
+          if(res.code == 0) {
+              this.$message({
+                type: 'success',
+                message: '添加成功'
+              });
+              this.$emit("closeAndRefreshList");
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.msg
+              });
+            }
         })
         .catch((err) => {
           this.$message({

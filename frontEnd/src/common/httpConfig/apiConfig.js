@@ -4,7 +4,7 @@
 import { urlConfig } from './ipConfig';
 
 const { baseUrl } = urlConfig;
-const baseURL = `${baseUrl}/api`
+const baseURL = `${baseUrl}`
 
 
 /**
@@ -12,11 +12,8 @@ const baseURL = `${baseUrl}/api`
  */
 
 const urlUtils = {
-    // 登录相关
-    userLogin: `${baseURL}/login/access-token`, // 登录
-    getUserMe: `${baseURL}/users/me`, // 获取用户信息
-    changePassword: `${baseURL}/reset-password/`, // 用户主动修改密码
-    userLogout: `${baseURL}/auth/logout`, // 登出 -----缺省
+    // 首页 - 配置轮播图
+    getBannerList: `${baseURL}/admin/getBannerList`, // 获取轮播图列表 get
 
 
 }

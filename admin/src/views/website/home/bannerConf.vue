@@ -6,6 +6,7 @@
         <span>轮播图配置</span>
         <div>
           <el-button type="success" icon="el-icon-plus" @click="handleClickAdd">新增</el-button>
+          <!-- <el-button type="success" icon="el-icon-plus" @click="addBannerList">批量新增</el-button> -->
           <el-button  type="text" @click="isOpen = !isOpen">
             <span>{{ isOpen ? '收起' : '展开' }}</span>
             <i :class="isOpen ? 'el-icon-arrow-up' : 'el-icon-arrow-down'"></i>
@@ -76,6 +77,7 @@ export default {
 
   data() {
     return {
+      cardLoading: false,
       dialogVisible: false,
       isOpen: true,
       handleType: 'add',
@@ -83,7 +85,6 @@ export default {
       bannerList: [],
       bannerListApi: [
         {
-            id: 5001,
             backGroundType: 'img', // img, color, video
             backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053xr0fs0rlo1.jpg', // 背景图片/视屏地址 ｜ 纯色的颜色
             title: '这是一级标题', // 标题
@@ -92,7 +93,6 @@ export default {
             link: 'https://www.baidu.com' // 跳转链接
         },
         {
-            id: 5002,
             backGroundType: 'img',
             backGroundUrl: 'https://www.sketchupbar.com/data/attachment/forum/201104/05/214753o73biezon08fj3bu.jpg',
             title: '智慧城市',
@@ -101,7 +101,6 @@ export default {
             link: 'https://www.JD.com'
         },
         {
-            id: 5003,
             backGroundType: 'img',
             backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053zrfuw2fqnd.jpg',
             title: '环境与生态',
@@ -110,7 +109,6 @@ export default {
             link: 'https://www.taobao.com'
         },
         {
-            id: 5004,
             backGroundType: 'img',
             backGroundUrl: 'https://b.zol-img.com.cn/soft/6/616/ceHlJ6dRjw6H.jpg',
             title: '',
@@ -119,7 +117,6 @@ export default {
             link: ''
         },
         {
-            id: 5005,
             backGroundType: 'img',
             backGroundUrl: 'https://img0.baidu.com/it/u=3995006546,2760268670&fm=253&fmt=auto&app=138&f=JPEG?w=1563&h=500',
             title: '',
@@ -128,7 +125,6 @@ export default {
             link: ''
         },
         {
-            id: 5006,
             backGroundType: 'img',
             backGroundUrl: 'https://img0.baidu.com/it/u=1960276615,4184663836&fm=253&fmt=auto&app=138&f=JPEG?w=1600&h=500',
             title: '',
@@ -137,7 +133,6 @@ export default {
             link: ''
         },
         {
-            id: 5007,
             backGroundType: 'img',
             backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053bnorgfxvrk.jpg',
             title: '',
@@ -146,7 +141,6 @@ export default {
             link: ''
         },
         {
-            id: 5008,
             backGroundType: 'img',
             backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/12309988630535b9l0wqvao.jpg',
             title: '',
@@ -155,6 +149,7 @@ export default {
             link: ''
         },
       ],
+      targetIndex:0,
     };
   },
 
@@ -164,27 +159,29 @@ export default {
 
   methods: {
     // 获取banner列表
-    getBannerList() {
+    getBannerList(){
       this.bannerList = [];
       this.cardLoading = true;
-      // this.$httpPost("getBannerList")
-      //   .then((res) => {
-      //     this.bannerList = [];
-      //   })
-      //   .catch((err) => {
-      //     this.$message({
-      //       message: err.message || "请求异常",
-      //       type: "error",
-      //     });
-      //   })
-      //   .finally(() => {
-      //     this.cardLoading = false;
-      //   });
-
-      setTimeout(() => {
-        this.bannerList = this.bannerListApi;
-        this.cardLoading = false;
-      }, 1000)
+      this.$httpGet('getBannerList')
+        .then((res) => {
+          if(res.code == 0) {
+            this.bannerList = res.data || []
+          } else {
+            this.$message({
+                type: 'error',
+                message: res.msg
+            });
+          }
+        })
+        .catch((err) => {
+          this.$message({
+            message: err.message || "请求异常",
+            type: "error",
+          });
+        })
+        .finally(() => {
+          this.cardLoading = false;
+        });
     },
 
     // 新增
@@ -207,13 +204,20 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$httpPost("deleteBanner", {id: row.id})
+        this.$httpDelete("deleteBanner", {}, {}, {id: row.id})
           .then((res) => {
-            this.$message({
-              type: 'success',
-              message: '已删除'
-            });
-            this.getBannerList();
+            if(res.code == 0) {
+              this.$message({
+                type: 'success',
+                message: '已删除'
+              });
+              this.getBannerList();
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.msg
+              });
+            }
           })
           .catch((err) => {
             this.$message({
@@ -233,6 +237,41 @@ export default {
       this.dialogVisible = false;
       this.getBannerList();
       this.isOpen = true;
+    },
+
+
+    // 批量新增
+    addBannerList() {
+      if(this.targetIndex < 8) {
+        this.createBanner(this.bannerListApi[this.targetIndex]);
+      }
+    },
+    createBanner(params) {
+      this.$httpPost('addBanner', params)
+        .then((res) => {
+          if(res.code == 0) {
+            this.$message({
+              type: 'success',
+              message: "新增成功"
+            });
+            this.targetIndex++;
+            this.addBannerList();
+          } else {
+            this.$message({
+              type: 'error',
+              message: res.msg
+            });
+          }
+        })
+        .catch((err) => {
+          this.$message({
+            message: err.message || "请求异常",
+            type: "error",
+          });
+        })
+        .finally(() => {
+          this.btnLoading = false;
+        });
     },
   },
 };

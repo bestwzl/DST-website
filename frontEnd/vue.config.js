@@ -10,8 +10,7 @@ module.exports = {
         hotOnly: true, // 热更新
         proxy: {
             '/apis': {
-                // target: 'http://172.16.68.16:8001', // 目标地址 本机-有线
-                target: 'http://backend.gcp.unicom.cn:30884', // 目标地址
+                target: 'http://127.0.0.1:9999', // 目标地址
                 // ws: true, // 是否启用websockets
                 secure: false, // 使用的是http协议则设置为false，https协议则设置为true
                 changeOrigin: true, //开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题

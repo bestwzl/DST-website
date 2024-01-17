@@ -64,80 +64,38 @@ export default {
       activeIndex: '1',
       headerToolShow: true,
       opcityNum: 1,
-      bannerList: [
-        {
-            backGroundType: 'img', // img, color, video
-            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053xr0fs0rlo1.jpg', // 背景图片/视屏地址 ｜ 纯色的颜色
-            title: '这是一级标题', // 标题
-            subTitle: '这里是二级标题，文字多一些', // 二级标题
-            desc: '这里是简单的描述文案，文字会更多一些，更多一些，更多一些', // 描述文案
-            link: 'https://www.baidu.com' // 跳转链接
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://www.sketchupbar.com/data/attachment/forum/201104/05/214753o73biezon08fj3bu.jpg',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053zrfuw2fqnd.jpg',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://b.zol-img.com.cn/soft/6/616/ceHlJ6dRjw6H.jpg',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://img0.baidu.com/it/u=3995006546,2760268670&fm=253&fmt=auto&app=138&f=JPEG?w=1563&h=500',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://img0.baidu.com/it/u=1960276615,4184663836&fm=253&fmt=auto&app=138&f=JPEG?w=1600&h=500',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/1230998863053bnorgfxvrk.jpg',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-        {
-            backGroundType: 'img',
-            backGroundUrl: 'https://img1.pconline.com.cn/piclib/200901/03/batch/1/20508/12309988630535b9l0wqvao.jpg',
-            title: '',
-            subTitle: '',
-            desc: '',
-            link: ''
-        },
-      ],
+      bannerList: [],
     };
   },
 
   mounted() {
-    // window.addEventListener()
+    this.getBannerList();
   },
 
   methods: {
+    getBannerList(){
+      this.btnLoading = true;
+      this.$httpGet('getBannerList')
+        .then((res) => {
+          if(res.code == 0) {
+            this.bannerList = res.data || []
+          } else {
+            this.$message({
+                type: 'error',
+                message: res.msg
+            });
+          }
+        })
+        .catch((err) => {
+          this.$message({
+            message: err.message || "请求异常",
+            type: "error",
+          });
+        })
+        .finally(() => {
+          this.btnLoading = false;
+        });
+    },
     handleScroll(scrollTop) {
       if (scrollTop <= 240) {
         if (!this.headerToolShow) {
